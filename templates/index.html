@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+
+    <!--
+        Flask serves files inside static/ at the URL /static/<filename>.
+        url_for() builds that URL automatically — always use it instead of
+        hard-coding paths so the app works in any deployment environment.
+    -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+    <!-- Google Font loaded from the CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Sora:wght@400;600;700&display=swap"
+        rel="stylesheet"
+    />
+</head>
+<body>
+
+    <!-- ── Page wrapper ──────────────────────────────────────────── -->
+    <main class="container">
+
+        <header class="app-header">
+            <span class="lock-icon" aria-hidden="true">🔐</span>
+            <h1>Password Generator</h1>
+            <p class="subtitle">Craft strong passwords in seconds</p>
+        </header>
+
+        <!-- ── Options card ──────────────────────────────────────── -->
+        <section class="card" aria-label="Password options">
+
+            <!-- Length slider -->
+            <div class="field">
+                <label for="length-slider">
+                    Length: <strong id="length-display">12</strong>
+                </label>
+                <input
+                    type="range"
+                    id="length-slider"
+                    min="4"
+                    max="64"
+                    value="12"
+                    aria-label="Password length"
+                />
+            </div>
+
+            <!-- Character-type checkboxes -->
+            <fieldset class="checkboxes">
+                <legend>Include characters</legend>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="opt-uppercase" checked />
+                    Uppercase  <span class="example">(A–Z)</span>
+                </label>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="opt-lowercase" checked />
+                    Lowercase  <span class="example">(a–z)</span>
+                </label>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="opt-digits" checked />
+                    Digits     <span class="example">(0–9)</span>
+                </label>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="opt-symbols" />
+                    Symbols    <span class="example">(!@#$…)</span>
+                </label>
+            </fieldset>
+
+            <!-- Generate button -->
+            <button class="btn-generate" id="btn-generate">
+                Generate Password
+            </button>
+        </section>
+
+        <!-- ── Result card ───────────────────────────────────────── -->
+        <section class="card result-card" id="result-card" aria-live="polite">
+            <p class="result-placeholder" id="result-placeholder">
+                Your password will appear here…
+            </p>
+
+            <!-- Hidden until a password is generated -->
+            <div class="result-row hidden" id="result-row">
+                <span class="password-text" id="password-output"></span>
+                <button class="btn-copy" id="btn-copy" title="Copy to clipboard">
+                    📋
+                </button>
+            </div>
+
+            <!-- Strength badge -->
+            <div class="strength-row hidden" id="strength-row">
+                Strength:
+                <span class="badge" id="strength-badge"></span>
+            </div>
+
+            <!-- Copy confirmation -->
+            <p class="copy-msg hidden" id="copy-msg">✅ Copied!</p>
+        </section>
+
+    </main><!-- /.container -->
+
+    <!--
+        JavaScript file is placed at the END of <body> so the DOM elements
+        above are already parsed before the script runs.
+    -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
